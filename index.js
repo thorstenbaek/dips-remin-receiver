@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
         ehrStoreUrl = "https://ehrstore.sandbox.dips.no";
     }    
 
-    res.send(`REMIN receiver v.1.0.0.6 is online!<br/>Configured EhrStore is: ${ehrStoreUrl}`);
+    res.send(`REMIN receiver v.1.0.0.7 is online!<br/>Configured EhrStore is: ${ehrStoreUrl}`);
 });
 
 app.listen(port, () => {
