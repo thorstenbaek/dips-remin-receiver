@@ -1,0 +1,99 @@
+# Source: Experimental/charts/remin-service/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: experimental-remin-service
+  labels:
+    helm.sh/chart: remin-service-0.1.0
+    app.kubernetes.io/name: remin-service
+    app.kubernetes.io/instance: experimental
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: remin-service
+    app.kubernetes.io/instance: experimental
+---
+# Source: Experimental/charts/remin-service/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: experimental-remin-service
+  labels:
+    helm.sh/chart: remin-service-0.1.0
+    app.kubernetes.io/name: remin-service
+    app.kubernetes.io/instance: experimental
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: remin-service
+      app.kubernetes.io/instance: experimental
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: remin-service
+        app.kubernetes.io/instance: experimental
+    spec:
+      securityContext:
+        {}
+      containers:
+        - name: remin-service
+          securityContext:
+            {}
+          image: "thorstenbaek/dips-remin-receiver:v1.0.0.5"
+          imagePullPolicy: Always          
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: http
+          resources:
+            {}
+---
+# Source: Experimental/charts/remin-service/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: experimental-remin-service  
+  labels:
+    helm.sh/chart: remin-service-0.1.0
+    app.kubernetes.io/name: remin-service
+    app.kubernetes.io/instance: experimental
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+        - "dips-remin-receiver.sandbox.dips.no"
+      secretName: remin-service-experimental-tls
+  rules:
+    - host: "dips-remin-receiver.sandbox.dips.no"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: experimental-remin-service
+                port: 
+                  number: 80

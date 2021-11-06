@@ -1,0 +1,26 @@
+{
+  "name": "dips-remin-receiver",
+  "version": "1.0.0",
+  "description": "Simple REST-endpoint to receive vaccination data from ReMin",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "set TARGET_DOMAIN=localhost&&nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorstenbaek/dips-remin-receiver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thorstenbaek/dips-remin-receiver/issues"
+  },
+  "homepage": "https://github.com/thorstenbaek/dips-remin-receiver#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^3.0.0",
+    "nodemon": "^2.0.14"
+  }
+}
