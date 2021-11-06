@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "set TARGET_DOMAIN=localhost&&nodemon index.js",
+    "dev": "set TARGET_DOMAIN=localhost&& set EHRSTORE_LOCATION_URL=http://vt-valhall01:9000&&nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
