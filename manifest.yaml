@@ -49,7 +49,7 @@ spec:
         - name: remin-service
           securityContext:
             {}
-          image: "thorstenbaek/dips-remin-receiver:v1.0.0.6"
+          image: "thorstenbaek/dips-remin-receiver:v1.0.0.7"
           imagePullPolicy: Always          
           ports:
             - name: http
