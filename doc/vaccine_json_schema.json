@@ -1,0 +1,134 @@
+{
+    "title": "ReminVaccination",
+    "type": "object",
+    "properties": {
+        "national_id": {
+            "title": "National Id",
+            "pattern": "[0-9]{11,12}",
+            "type": "string"
+        },
+        "completed_at": {
+            "title": "Completed At",
+            "type": "string",
+            "format": "date-time"
+        },
+        "organization": {
+            "title": "Organization",
+            "type": "string"
+        },
+        "vaccine": {
+            "$ref": "#/definitions/ReminVaccine"
+        },
+        "allergic_reaction": {
+            "title": "Allergic Reaction",
+            "type": "boolean"
+        },
+        "cleared_by": {
+            "$ref": "#/definitions/ClearedByEnum"
+        },
+        "given_by": {
+            "title": "Given By",
+            "type": "string"
+        },
+        "notes": {
+            "title": "Notes",
+            "type": "string"
+        },
+        "parental_consent_given": {
+            "title": "Parental Consent Given",
+            "type": "boolean"
+        },
+        "parental_consent_given_at": {
+            "title": "Parental Consent Given At",
+            "type": "string",
+            "format": "date-time"
+        },
+        "placement": {
+            "$ref": "#/definitions/PlacementEnum"
+        },
+        "self_declaration": {
+            "title": "Self Declaration",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ReminSelfDeclaration"
+            }
+        },
+        "valid_identification": {
+            "title": "Valid Identification",
+            "type": "boolean"
+        },
+        "vaccination_step": {
+            "title": "Vaccination Step",
+            "type": "integer"
+        }
+    },
+    "required": [
+        "national_id",
+        "completed_at",
+        "organization",
+        "vaccine"
+    ],
+    "definitions": {
+        "ReminVaccine": {
+            "title": "ReminVaccine",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "manufacturer": {
+                    "title": "Manufacturer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "manufacturer"
+            ]
+        },
+        "ClearedByEnum": {
+            "title": "ClearedByEnum",
+            "description": "An enumeration.",
+            "enum": [
+                "PATIENT",
+                "COMMON_PRACTITIONER",
+                "OTHER_DOCTOR",
+                "NOT_CLEARED"
+            ]
+        },
+        "PlacementEnum": {
+            "title": "PlacementEnum",
+            "description": "An enumeration.",
+            "enum": [
+                "LEFT_ARM",
+                "RIGHT_ARM",
+                "LEFT_LEG",
+                "RIGHT_LEG",
+                "OTHER"
+            ]
+        },
+        "ReminSelfDeclaration": {
+            "title": "ReminSelfDeclaration",
+            "type": "object",
+            "properties": {
+                "question": {
+                    "title": "Question",
+                    "type": "string"
+                },
+                "answer": {
+                    "title": "Answer",
+                    "type": "boolean"
+                },
+                "notes": {
+                    "title": "Notes",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "question",
+                "answer"
+            ]
+        }
+    }
+}

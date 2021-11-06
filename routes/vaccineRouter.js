@@ -7,12 +7,12 @@ export default class VaccineRouter extends Router {
 
         this.controller = new VaccineController();
     }
-    
+
     get root() {
-        return "/vaccine";        
+        return "/vaccine";
     }
-    
-    setupRoutes(router) {                
-        router.post('/', (req, res) => this.controller.pushVaccine(req, res));
+
+    setupRoutes(router) {
+        router.post('/',(req,res) => this.controller.pushVaccine(req,res));
     }
 }

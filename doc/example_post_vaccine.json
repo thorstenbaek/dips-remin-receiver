@@ -1,0 +1,71 @@
+{
+    "national_id": "21016400952",
+    "completed_at": "2021-11-05T00:00:00+00:00",
+    "organization": "ReMinneapolis",
+    "vaccine": {
+        "name": "Pfizer",
+        "manufacturer": "Pfizer/BioNTech Covid-19"
+    },
+    "allergic_reaction": false,
+    "cleared_by": null,
+    "given_by": "Thor Stenb\u00e6k",
+    "notes": "tester notat",
+    "parental_consent_given": null,
+    "parental_consent_given_at": null,
+    "placement": "LEFT_ARM",
+    "self_declaration": [{
+        "question": "WANTS_VACCINE",
+        "answer": true,
+        "notes": null
+    }, {
+        "question": "HAS_SYMPTOMS",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "IN_QUARANTINE",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "RECENTLY_HAD_COVID",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "RECENT_FLU_VACCINE",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "HAS_MAST_CELL_DISEASE",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "ASTHMA_CORTISONE",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "ASTHMA_SYMPTOMS",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "HAS_PREVIOUS_VACCINE_REACTIONS",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "HAS_ALLERGIES",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "HAS_BLEEDING_DISORDER",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "HAS_REDUCED_IMMUNE_SYSTEM",
+        "answer": false,
+        "notes": null
+    }, {
+        "question": "PREVIOUSLY_HAD_COVID",
+        "answer": false,
+        "notes": null
+    }],
+    "valid_identification": false,
+    "vaccination_step": 1
+}
