@@ -71,11 +71,7 @@ export default class VaccineController {
         var patients = await result.json();
         if (patients.rows == null || patients.rows.length == 0) {
             console.log(`No EhrId found for patient ${patientId} - creating new ehrId`);
-            // return await this.createPatient(patientId);
-            console.error(patients.rows);
-
-            return null;
-
+            return await this.createPatient(patientId);
         }
         else {
             var ehrId = patients.rows[0][0];
@@ -103,14 +99,15 @@ export default class VaccineController {
             // There must be at least one vaccination - pick up the values and build the composition
             var patientId = vaccineRegistration.national_id;
             var when = vaccineRegistration.completed_at;
-            var doseNumber = vaccineRegistration.vaccinationStep ? vaccineRegistration.vaccinationStep : 1;
+            var doseNumber = vaccineRegistration.vaccination_step ? vaccineRegistration.vaccination_step : 1;
             var placement = vaccineRegistration.placement ? vaccineRegistration.placement : "UNKNOWN";
             var organisation = vaccineRegistration.organization;
             var manufacturer = vaccineRegistration.vaccine.manufacturer;
             var vaccine = vaccineRegistration.vaccine.name;
+            var notes = vaccineRegistration.notes ? vaccineRegistration.notes : "";
+            var batchId = "UNKNOWN";
+            var composition = buildComposition(when,vaccine,manufacturer,batchId,doseNumber,placement,organisation,notes);
 
-            var composition = buildComposition(when,vaccine,manufacturer,"XX",doseNumber,placement,organisation,"");
-            //await this.postVaccineToEhrStore(ehrId,composition);
             const result = await this.contributeVaccineToEhrStore(composition,patientId,"REMIN",ehrId);
             if (result) {
                 res.status(200).send("OK");
@@ -123,28 +120,12 @@ export default class VaccineController {
         }
 
     }
-    async postVaccineToEhrStore(ehrId,composition) {
-        //Push composition to EHRStore        
-        const result = await fetch(
-            this.ehrStoreUrl + "/api/v1/" + ehrId + "/composition/?committerName=REMIN&versionLifecycleState=532",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: composition
-            }
-        );
-        var json = await result.json(result);
-        console.log("Successfully created compositon " + JSON.stringify(json,null,1));
 
-    }
     async contributeVaccineToEhrStore(composition,patientId,committer,ehrId) {
         var contribution = createContribution(composition,committer,patientId);
         var path = `/api/v1/${ehrId}/contribution?committerName=${committer}`;
-        //console.log(JSON.stringify(contribution,null,1));
-        fs.writeFileSync("contribution.json",contribution,{ encoding: 'utf-8' });
+
+        //fs.writeFileSync("contribution.json",JSON.stringify(contribution,null,1),{ encoding: 'utf-8' });
 
         const result = await fetch(
             this.ehrStoreUrl + path,
@@ -154,7 +135,7 @@ export default class VaccineController {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
                 },
-                body: contribution
+                body: JSON.stringify(contribution)
             }
         );
         var json = await result.json(result);

@@ -3,59 +3,83 @@
  * @param {string} composition 
  * @param {string} committerName 
  * @param {string} patientId 
- * @returns {string}
+ * @returns {any}
  */
 export function createContribution(composition,committerName,patientId) {
+
+    var now = new Date();
+    var nowIso = now.toISOString();
+    var c = [
+        {
+            "content": composition,
+            "preceding_version_uid": null,
+            "lifecycle_state": 532,
+            tags: [
+                {
+                    key: 'PatientId',
+                    value: patientId
+                }
+            ]
+
+        }
+    ];
+
+    return c;
+}
+
+/**
+ * 
+ * @param {string} composition 
+ * @param {string} committerName 
+ * @param {string} patientId 
+ * @returns {any}
+ */
+export function createContributionOld(composition,committerName,patientId) {
+
     var now = new Date();
     var nowIso = now.toISOString();
     var c = {
-        "_type": "CONTRIBUTION_REQUEST",
+        "audit": {
+            "_type": "AUDIT_DETAILS",
+            "system_id": "ehr_craft",
+            "committer": {
+                "_type": "PARTY_IDENTIFIED",
+                "external_ref": {
+                    "id": {
+                        "_type": "GENERIC_ID",
+                        "value": ""
+                    },
+                    "namespace": "demographic",
+                    "type": "PERSON"
+                },
+                "name": committerName
+            },
+            "time_committed": {
+                "value": nowIso
+            },
+            "change_type": {
+                "value": "creation",
+                "defining_code": {
+                    "terminology_id": {
+                        "value": "openehr"
+                    },
+                    "code_string": "249"
+                }
+            }
+        },
         "versions": [
             {
+                "data": composition,
+                //      "preceding_version_uid": null,
+                "lifecycle_state": 532,
                 "context": [
                     {
                         "key": "PatientId",
                         "value": patientId
                     }
-                ],
-                "data": composition,
-                "lifecycle_state": 532,
+                ]
             }
-        ],
-        "uid": null,
-        "audit": {
-            "_type": "AUDIT_DETAILS",
-            "system_id": "REMIN",
-            "time_committed": {
-                "_type": "DV_DATE_TIME",
-                "value": nowIso
-            },
-            "change_type": {
-                "_type": "DV_CODED_TEXT",
-                "value": "creation",
-                "defining_code": {
-                    "_type": "CODE_PHRASE",
-                    "terminology_id": {
-                        "_type": "TERMINOLOGY_ID",
-                        "value": "openehr"
-                    },
-                    "code_string": "249"
-                }
-            },
-            "committer": {
-                "_type": "PARTY_IDENTIFIED",
-                "external_ref": {
-                    "_type": "PARTY_REF",
-                    "namespace": "demographic",
-                    "type": "PERSON",
-                    "id": {
-                        "_type": "GENERIC_ID"
-                    }
-                },
-                "name": committerName
-            }
-        }
-
+        ]
     };
-    return JSON.stringify(c);
+    return c;
 }

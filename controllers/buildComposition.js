@@ -48,7 +48,17 @@ function timeToIsoTime(when) {
  */
 export function buildComposition(when,vaccine,manufacturer,batchId,doseNumber,placement,organisation,comment) {
     var anatomicalLocation = placementToHumanReadableString(placement);
-    var time = timeToIsoTime(when);
+    var now = new Date();
+    var hour = now.getHours();
+    var minutes = now.getMinutes();
+    var vaccineTime = new Date(when);
+    if (when) {
+        vaccineTime.setHours(hour);
+        vaccineTime.setMinutes(minutes);
+
+    }
+    var time = timeToIsoTime(vaccineTime);
+
     var composition = {
         "_type": "COMPOSITION",
         "archetype_node_id": "openEHR-EHR-COMPOSITION.vaccination_list.v0",
