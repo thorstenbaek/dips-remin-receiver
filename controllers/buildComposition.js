@@ -44,9 +44,10 @@ function timeToIsoTime(when) {
  * @param {string} placement 
  * @param {string} organisation 
  * @param {string} comment 
+ * @param {string} vaccinator the person who gave the vaccine
  * @returns 
  */
-export function buildComposition(when,vaccine,manufacturer,batchId,doseNumber,placement,organisation,comment) {
+export function buildComposition(when,vaccine,manufacturer,batchId,doseNumber,placement,organisation,comment,vaccinator) {
     var anatomicalLocation = placementToHumanReadableString(placement);
     var now = new Date();
     var hour = now.getHours();
@@ -206,6 +207,52 @@ export function buildComposition(when,vaccine,manufacturer,batchId,doseNumber,pl
                         "_type": "DV_COUNT",
                         "magnitude": doseNumber
                     }
+                },
+                {
+                    "_type": "CLUSTER",
+                    "archetype_node_id": "openEHR-EHR-CLUSTER.person.v0",
+                    "name": {
+                        "value": "Vaksinatør"
+                    },
+                    "archetype_details": {
+                        "archetype_id": {
+                            "value": "openEHR-EHR-CLUSTER.person.v0"
+                        },
+                        "template_id": {
+                            "value": "vaccination_list_v10"
+                        },
+                        "rm_version": "1.0.4"
+                    },
+                    "items": [
+                        {
+                            "_type": "ELEMENT",
+                            "archetype_node_id": "at0001",
+                            "name": {
+                                "value": "Vaksinatør"
+                            },
+                            "value": {
+                                "_type": "DV_TEXT",
+                                "value": vaccinator
+                            }
+                        },
+                        {
+                            "_type": "ELEMENT",
+                            "archetype_node_id": "at0004",
+                            "name": {
+                                "value": "Rolle"
+                            },
+                            "value": {
+                                "_type": "DV_CODED_TEXT",
+                                "value": "Vaksinatør",
+                                "defining_code": {
+                                    "terminology_id": {
+                                        "value": "local_terms"
+                                    },
+                                    "code_string": "VACCINATOR"
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     "_type": "ELEMENT",
