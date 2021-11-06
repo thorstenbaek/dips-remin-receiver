@@ -106,7 +106,9 @@ export default class VaccineController {
             var vaccine = vaccineRegistration.vaccine.name;
             var notes = vaccineRegistration.notes ? vaccineRegistration.notes : "";
             var batchId = "UNKNOWN";
-            var composition = buildComposition(when,vaccine,manufacturer,batchId,doseNumber,placement,organisation,notes);
+            var vaccinator = vaccineRegistration.given_by ? vaccineRegistration.given_by : "";
+            var composition = buildComposition(when,vaccine,manufacturer,batchId,doseNumber,placement,organisation,notes,vaccinator);
+
 
             const result = await this.contributeVaccineToEhrStore(composition,patientId,"REMIN",ehrId);
             if (result) {
