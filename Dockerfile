@@ -14,7 +14,7 @@ RUN npm install -D
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY ./dist .
+COPY . .
 
 EXPOSE 80
 
@@ -23,4 +23,4 @@ ENV IN_CONTAINER=1
 ENV EHRSTORE_LOCATION_URL=https://ehrstore.sandbox.dips.no
 
 
-CMD [ "node", "index.js" ]
+CMD [ "node", "dist/index.js" ]
