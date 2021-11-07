@@ -8,6 +8,8 @@ WORKDIR /app
 # where available (npm@5+)
 
 RUN npm install
+
+RUN npm install -D
 # If you are building your code for production
 # RUN npm ci --only=production
 
@@ -21,4 +23,4 @@ ENV IN_CONTAINER=1
 ENV EHRSTORE_LOCATION_URL=https://ehrstore.sandbox.dips.no
 
 
-CMD [ "node", "index.js" ]
+CMD [ "node", "dist/index.js" ]

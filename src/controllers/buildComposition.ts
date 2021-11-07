@@ -1,16 +1,11 @@
 
+
 /**
- * 
- *  "LEFT_ARM",
-                "RIGHT_ARM",
-                "LEFT_LEG",
-                "RIGHT_LEG",
-                "OTHER"
- * 
- * @param {string} placement 
- * @returns {string}
+ *
+ * @param placement
+ * @returns
  */
-function placementToHumanReadableString(placement) {
+function placementToHumanReadableString(placement: string) {
     switch (placement) {
         case "LEFT_ARM":
             return "Venstre arm";
@@ -27,40 +22,40 @@ function placementToHumanReadableString(placement) {
     }
 }
 /**
- * 
- * @param {Date} when 
+ *
+ * @param when
  */
-function timeToIsoTime(when) {
-    return when;
+function timeToIsoTime(when: Date): string {
+    return when.toISOString();
 
 }
 /**
- * 
- * @param {Date} when 
- * @param {string} vaccine 
- * @param {string} manufacturer 
- * @param {string} batchId 
- * @param {number} doseNumber 
- * @param {string} placement 
- * @param {string} organisation 
- * @param {string} comment 
- * @param {string} vaccinator the person who gave the vaccine
- * @returns 
+ *
+ * @param when
+ * @param vaccine
+ * @param manufacturer
+ * @param batchId
+ * @param doseNumber
+ * @param placement
+ * @param organisation
+ * @param comment
+ * @param vaccinator
+ * @returns
  */
-export function buildComposition(when,vaccine,manufacturer,batchId,doseNumber,placement,organisation,comment,vaccinator) {
-    var anatomicalLocation = placementToHumanReadableString(placement);
-    var now = new Date();
-    var hour = now.getHours();
-    var minutes = now.getMinutes();
-    var vaccineTime = new Date(when);
+export function buildComposition(when: Date, vaccine: string, manufacturer: string, batchId: string, doseNumber: number, placement: string, organisation: string, comment: string, vaccinator: string) {
+    const anatomicalLocation = placementToHumanReadableString(placement);
+    const now = new Date();
+    const hour = now.getHours();
+    const minutes = now.getMinutes();
+    const vaccineTime = new Date(when);
     if (when) {
         vaccineTime.setHours(hour);
         vaccineTime.setMinutes(minutes);
 
     }
-    var time = timeToIsoTime(vaccineTime);
+    const time = timeToIsoTime(vaccineTime);
 
-    var composition = {
+    const composition = {
         "_type": "COMPOSITION",
         "archetype_node_id": "openEHR-EHR-COMPOSITION.vaccination_list.v0",
         "name": {
