@@ -8,6 +8,8 @@ WORKDIR /app
 # where available (npm@5+)
 
 RUN npm install
+
+RUN npm install -D
 # If you are building your code for production
 # RUN npm ci --only=production
 
