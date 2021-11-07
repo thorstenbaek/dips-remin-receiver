@@ -3,20 +3,12 @@ import {buildComposition} from "./buildComposition";
 import {createContribution} from "./buildContribution";
 import * as express from "express";
 import fetch from 'node-fetch';
+import {ResultSet} from "../model/ResultSet";
 
 
 
 
 
-interface ResultSet {
-    totalResults: number;
-    columns: Column[];
-    rows: any[][];
-}
-interface Column {
-    name: string;
-    path: string;
-}
 
 
 export class VaccineController {
