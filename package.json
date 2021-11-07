@@ -4,8 +4,6 @@
   "description": "Simple REST-endpoint to receive vaccination data from ReMin",
   "main": "dist/index.js",
   "scripts": {
-    "starting": "set TARGET_DOMAIN=localhost&&nodemon index.js",
-    "devs": "set TARGET_DOMAIN=localhost&& set EHRSTORE_LOCATION_URL=http://vt-valhall01:9000&&nodemon index.js",
     "clean": "rimraf dist/*",
     "copy-assets": "ts-node tools/copyAssets",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
@@ -29,7 +27,8 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "node-fetch": "^2.0.0"
+    "node-fetch": "^2.0.0",
+    "unique-names-generator": "^4.6.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

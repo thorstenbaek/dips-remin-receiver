@@ -4,6 +4,8 @@ import {createContribution} from "./buildContribution";
 import * as express from "express";
 import fetch from 'node-fetch';
 import {ResultSet} from "../model/ResultSet";
+import {MasterPatientIndex} from './mpi';
+import {generatePatientName} from './nameGenerator';
 
 
 
@@ -12,13 +14,9 @@ import {ResultSet} from "../model/ResultSet";
 
 
 export class VaccineController {
-    private ehrStoreUrl: string;
 
-    constructor() {
-        this.ehrStoreUrl = process.env.EHRSTORE_LOCATION_URL;
-        if (this.ehrStoreUrl == null) {
-            this.ehrStoreUrl = "https://ehrstore.sandbox.dips.no";
-        }
+
+    constructor(private masterPatientIndex: MasterPatientIndex, private ehrStoreUrl: string) {
 
 
     }
@@ -78,6 +76,8 @@ export class VaccineController {
             console.log(resultSet);
             if (resultSet.totalResults <= 0) {
                 console.log(`No EhrId found for patient ${patientId} - creating new ehrId`);
+                const names = generatePatientName();
+                this.masterPatientIndex.add(patientId, names[0], names[1], 'unknown');
                 return await this.createPatient(patientId);
             } else {
 
