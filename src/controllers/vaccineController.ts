@@ -121,8 +121,11 @@ export class VaccineController {
             const manufacturer = vaccineRegistration.vaccine.manufacturer;
             const vaccine = vaccineRegistration.vaccine.name;
             const notes = vaccineRegistration.notes ? vaccineRegistration.notes : "";
-            const batchId = "UNKNOWN";
+            const batchId = vaccineRegistration.vaccine.batch_id ? vaccineRegistration.vaccine.batch_id : "";
             const vaccinator = vaccineRegistration.given_by ? vaccineRegistration.given_by : "";
+
+            console.log("batchId", batchId);
+
             const composition = buildComposition(when, vaccine, manufacturer, batchId, doseNumber, placement, organisation, notes, vaccinator);
 
 

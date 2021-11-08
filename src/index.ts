@@ -34,7 +34,7 @@ const vaccineController = new VaccineController(masterPatientIndex, ehrStoreUrl)
 
 
 app.get("/", (req, res) => {
-    res.send(`REMIN receiver v.1.0.0.8 is online!<br/>Configured EhrStore is: ${ehrStoreUrl}`);
+    res.send(`REMIN receiver v.1.0.0.10 is online!<br/>Configured EhrStore is: ${ehrStoreUrl}`);
 });
 app.get("/health", (req, res) => {healthRouter.doHealth(req, res)});
 app.post("/vaccine", (req, res) => vaccineController.pushVaccine(req, res));
